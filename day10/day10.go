@@ -146,10 +146,6 @@ func calculateAngle(pos1, pos2 asteroid) float64 {
 	return angle
 }
 
-// func getGradient(pos1, pos2 position) float32 {
-// 	return float32(pos2.y - pos1.y) / float32(pos2.x - pos1.x)
-// }
-
 func readInput() []asteroid {
 	file, _ := os.Open("input.txt")
 	scanner := bufio.NewScanner(file)
