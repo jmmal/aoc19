@@ -34,7 +34,7 @@ type Computer struct {
 }
 
 // Execute the opcode
-func (computer Computer) Execute(input <-chan int64, output chan<- int64, halt chan<- bool) {
+func (computer Computer) Execute(input <-chan int64, output chan<- int64) {
 	arr := make([]int64, 10000)
 	copy(arr, computer.Memory)
 
