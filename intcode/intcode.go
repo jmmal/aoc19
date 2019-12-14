@@ -34,7 +34,7 @@ type Computer struct {
 }
 
 // Execute the opcode
-func (computer Computer) Execute(input <-chan int64, output chan<- int64) {
+func (computer Computer) Execute(input <-chan int64, output chan<- int64, wait chan<- bool) {
 	arr := make([]int64, 10000)
 	copy(arr, computer.Memory)
 
@@ -63,6 +63,7 @@ func (computer Computer) Execute(input <-chan int64, output chan<- int64) {
 
 		case Input:
 			a := computer.getArg(1, modes[0])
+			wait<- true
 			computer.Memory[a] = <-input
 			computer.IP += 2
 
@@ -121,6 +122,7 @@ func (computer Computer) Execute(input <-chan int64, output chan<- int64) {
 
 		case Halt:
 			close(output)
+			close(wait)
 			return
 		default:
 			panic(fmt.Sprintf("Unknown instruction %d\n", op))
